@@ -58,8 +58,7 @@ HERE
     end
 
     def perform_action
-      puts 'do it to it'
-      exporter = Exporter(@owner, @repo, @token)
+      exporter = IssueExporting::Exporter.new(@owner, @repo, @token)
       exporter.export
     end
   end
