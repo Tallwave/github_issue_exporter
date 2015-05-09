@@ -4,3 +4,46 @@
 $LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__) + '/../lib')
 
 require 'issue-exporter/cli'
+
+module IssueExporting
+  class Command
+    include CLI
+
+    def about
+      "Issue Exporter"
+    end
+
+    def usage
+      <<HERE
+Download all open issues from a GitHub repository.
+
+Usage: #{$PROGRAM_NAME} [OPTION]... [FILE]...
+
+-o, --output      DIRECTORY
+                    set output path
+                      (default: current working directory)
+
+    --single-file Combine all issues into a single file format
+                    (default: multiple files)
+
+-h, --help        display this help and exit
+    --version     display the version
+
+HERE
+
+    end
+
+    def initialize
+      super
+      @output = nil
+      @single_file = false
+    end
+
+    def define_options(opts)
+      opts.on('-o', '--output ARG') { |arg| @output = arg }
+      opts.on('--single-file')      { @single_file = true }
+    end
+  end
+end
+
+IssueExporting::Command.new.run

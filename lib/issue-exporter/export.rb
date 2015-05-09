@@ -10,5 +10,5 @@ end
 
 
 
-url = URI.parse ""
+#url = URI.parse ""
 
