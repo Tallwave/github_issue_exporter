@@ -24,7 +24,14 @@ module IssueExporting
       rescue OptionParser::ParseError => e
         raise UsageError, e
       end
-    end
 
+      fail UsageError, 'missing argument' if ARGV.empty?
+      fail UsageError, 'incorrect number of arguments' if ARGV.count != 3
+      ARGV.each_with_index { |arg, index| process_input arg, index }
+
+    rescue UsageError => e
+      puts "#{$PROGRAM_NAME}: #{e}\nTry `#{$PROGRAM_NAME} --help` for more information."
+      exit false
+    end
   end
 end

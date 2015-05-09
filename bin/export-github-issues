@@ -19,7 +19,7 @@ Download all open issues from a GitHub repository.
 
 Usage: #{$PROGRAM_NAME} [OPTION]... [OWNER] [REPO] [TOKEN]
 
-Example: #{PROGRAM_NAME} swilliams issue-exporter abcdef
+Example: #{$PROGRAM_NAME} swilliams issue-exporter abcdef
 
 -o, --output      DIRECTORY
                     set output path
@@ -44,6 +44,21 @@ HERE
     def define_options(opts)
       opts.on('-o', '--output ARG') { |arg| @output = arg }
       opts.on('--single-file')      { @single_file = true }
+    end
+
+    def process_input(arg, index)
+      case index
+      when 0
+        @owner = arg
+      when 1
+        @repo = arg
+      when 2
+        @token = arg
+      end
+    end
+
+    def perform_action
+      #
     end
   end
 end
