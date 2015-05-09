@@ -59,6 +59,8 @@ HERE
 
     def perform_action
       puts 'do it to it'
+      exporter = Exporter(@owner, @repo, @token)
+      exporter.export
     end
   end
 end
