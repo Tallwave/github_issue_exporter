@@ -28,6 +28,7 @@ module IssueExporting
       fail UsageError, 'missing argument' if ARGV.empty?
       fail UsageError, 'incorrect number of arguments' if ARGV.count != 3
       ARGV.each_with_index { |arg, index| process_input arg, index }
+      perform_action()
 
     rescue UsageError => e
       puts "#{$PROGRAM_NAME}: #{e}\nTry `#{$PROGRAM_NAME} --help` for more information."
