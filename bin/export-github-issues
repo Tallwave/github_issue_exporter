@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby -W
+# Copyright (c) 2015 Scott Williams
+
+$LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__) + '/../lib')
+
+require 'issue-exporter/cli'
