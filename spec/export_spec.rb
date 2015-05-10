@@ -7,7 +7,7 @@ describe 'Integrations:' do
 
   describe 'file output' do
     let (:output_filename) {
-      File.expand_path('../../lib/issue-exporter/issues.json', __FILE__)
+      File.expand_path('../../issues.json', __FILE__)
     }
 
     let (:mock_data) {

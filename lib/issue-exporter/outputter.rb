@@ -17,7 +17,7 @@ module IssueExporting
 
     private
     def default_path
-      File.expand_path("../", __FILE__)
+      Dir.pwd
     end
 
     def default_filename
