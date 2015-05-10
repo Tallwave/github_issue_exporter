@@ -31,9 +31,16 @@ describe 'Integrations:' do
       exporter = IssueExporting::Exporter.new(owner, repo, token)
       stub_request(:any, "https://api.github.com/repos/swilliams/test-repo/issues?access_token=abcdef").to_return(body: mock_data)
       exporter.export()
-      puts "checking #{output_filename}"
       expect(File.exists? output_filename).to eq true
       expect(File.read(output_filename)).to eq mock_data
+    end
+
+    it 'allows custom output file' do
+      custom_path = File.expand_path('../derp.json', output_filename)
+      outputter = IssueExporting::FileOutputter.new(path: custom_path)
+      outputter.write('test')
+      expect(File.exists? custom_path).to eq true
+      File.delete custom_path
     end
   end
 
