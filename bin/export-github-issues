@@ -58,7 +58,8 @@ HERE
     end
 
     def perform_action
-      exporter = IssueExporting::Exporter.new(@owner, @repo, @token)
+      options = { path: @output, single_file: @single_file }
+      exporter = IssueExporting::Exporter.new(@owner, @repo, @token, options)
       exporter.export
     end
   end

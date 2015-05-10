@@ -12,7 +12,7 @@ module IssueExporting
       @owner = owner
       @repo = repo
       @token = token
-      @outputter = FileOutputter.new
+      @outputter = FileOutputter.new options
     end
 
     def export
