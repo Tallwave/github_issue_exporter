@@ -33,6 +33,7 @@ describe 'Integrations:' do
       exporter.export()
       puts "checking #{output_filename}"
       expect(File.exists? output_filename).to eq true
+      expect(File.read(output_filename)).to eq mock_data
     end
   end
 
