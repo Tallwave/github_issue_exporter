@@ -10,7 +10,7 @@ module IssueExporting
     include CLI
 
     def about
-      "Issue Exporter"
+      VERSION
     end
 
     def usage
