@@ -1,7 +1,7 @@
 # Copyright (c) 2015 Scott Williams
 
 require 'optparse'
-require 'issue-exporter'
+require 'issue_exporter'
 
 module IssueExporting
   module CLI

@@ -3,7 +3,7 @@
 
 $LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__) + '/../lib')
 
-require 'issue-exporter/cli'
+require 'issue_exporter/cli'
 
 module IssueExporting
   class Command
@@ -19,7 +19,7 @@ Download all open issues from a GitHub repository.
 
 Usage: #{$PROGRAM_NAME} [OPTION]... [OWNER] [REPO] [TOKEN]
 
-Example: #{$PROGRAM_NAME} swilliams issue-exporter abcdef
+Example: #{$PROGRAM_NAME} swilliams issue_exporter abcdef
 
 -o, --output      DIRECTORY
                     set output path
