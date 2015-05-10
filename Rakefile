@@ -6,6 +6,6 @@ RSpec::Core::RakeTask.new(:spec)
 
 task :default => :spec
 
-#task :build do
-  #system "gem build obsidian_session_client.gemspec"
-#end
+task :build do
+  system "gem build github_issue_exporter.gemspec"
+end
