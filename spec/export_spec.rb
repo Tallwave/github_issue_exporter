@@ -36,11 +36,12 @@ describe 'Integrations:' do
     end
 
     it 'allows custom output file' do
-      custom_path = File.expand_path('../derp.json', output_filename)
+      custom_path = File.expand_path('../tmp', __FILE__)
       outputter = IssueExporting::FileOutputter.new(path: custom_path)
       outputter.write('test')
-      expect(File.exists? custom_path).to eq true
-      File.delete custom_path
+      tmp_filename = "#{custom_path}/issues.json"
+      expect(File.exists? tmp_filename).to eq true
+      File.delete tmp_filename
     end
   end
 

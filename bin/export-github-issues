@@ -25,8 +25,8 @@ Example: #{$PROGRAM_NAME} swilliams issue-exporter abcdef
                     set output path
                       (default: current working directory)
 
-    --single-file Combine all issues into a single file format
-                    (default: multiple files)
+    --multiple-files Use a separate file for each issue
+                    (default: one single file)
 
 -h, --help        display this help and exit
     --version     display the version
@@ -38,12 +38,12 @@ HERE
     def initialize
       super
       @output = nil
-      @single_file = false
+      @multiple_files = false
     end
 
     def define_options(opts)
       opts.on('-o', '--output ARG') { |arg| @output = arg }
-      opts.on('--single-file')      { @single_file = true }
+      opts.on('--multiple-files')      { @multiple_files = true }
     end
 
     def process_input(arg, index)
@@ -58,7 +58,7 @@ HERE
     end
 
     def perform_action
-      options = { path: @output, single_file: @single_file }
+      options = { path: @output, multiple_files: @multiple_files }
       exporter = IssueExporting::Exporter.new(@owner, @repo, @token, options)
       exporter.export
     end
