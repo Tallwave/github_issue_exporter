@@ -53,6 +53,8 @@ describe 'Integrations:' do
       Dir.chdir dir
       file_count = Dir.glob("*.json").count
       expect(file_count).to eq 2
+      File.delete "#{dir}/issue-1.json"
+      File.delete "#{dir}/issue-2.json"
     end
   end
 
