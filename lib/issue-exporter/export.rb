@@ -30,6 +30,3 @@ module IssueExporting
   end
 end
 
-
-#url = URI.parse ""
-
