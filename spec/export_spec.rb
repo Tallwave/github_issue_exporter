@@ -6,7 +6,7 @@ describe 'Integrations:' do
   let (:token) { "abcdef" }
 
   describe 'file output' do
-    let (:output_filename) { 
+    let (:output_filename) {
       File.expand_path('../../lib/issue-exporter/issues.json', __FILE__)
     }
 
@@ -42,6 +42,17 @@ describe 'Integrations:' do
       tmp_filename = "#{custom_path}/issues.json"
       expect(File.exists? tmp_filename).to eq true
       File.delete tmp_filename
+    end
+
+    it 'writes multiple files when the flag is set' do
+      options = { multiple_files: true }
+      exporter = IssueExporting::Exporter.new(owner, repo, token, options)
+      stub_request(:any, "https://api.github.com/repos/swilliams/test-repo/issues?access_token=abcdef").to_return(body: mock_data)
+      exporter.export()
+      dir = File.expand_path("../", output_filename)
+      Dir.chdir dir
+      file_count = Dir.glob("*.json").count
+      expect(file_count).to eq 2
     end
   end
 

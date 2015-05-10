@@ -8,8 +8,7 @@ module IssueExporting
 
     def write(response_text)
       path = @options[:path] || default_path
-      path = "#{path}/#{default_filename}"
-      File.open(path, 'w') { |f| f.write response_text }
+      write_single_file path, response_text
     end
 
     private
@@ -19,6 +18,11 @@ module IssueExporting
 
     def default_filename
       "issues.json"
+    end
+
+    def write_single_file(dir, response_text)
+      path = "#{dir}/#{default_filename}"
+      File.open(path, 'w') { |f| f.write response_text }
     end
   end
 end
