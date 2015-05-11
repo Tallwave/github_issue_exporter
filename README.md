@@ -1,5 +1,7 @@
 # GitHub Issue Exporter
 
+[![Circle CI](https://circleci.com/gh/Tallwave/github_issue_exporter.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/Tallwave/github_issue_exporter) [![Code Climate](https://codeclimate.com/github/Tallwave/github_issue_exporter/badges/gpa.svg)](https://codeclimate.com/github/Tallwave/github_issue_exporter)
+
 Need to archive some repositories that are stored on GitHub? Great. Don't forget to hold on to any open issues you may still have. GitHub Issue Exporter is a command-line utility that will download all the open issues for a single repository.
 
 ## Installation

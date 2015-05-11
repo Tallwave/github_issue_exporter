@@ -1,0 +1,16 @@
+## Customize the test machine
+machine:
+
+  # Version of ruby to use
+  ruby:
+    version:
+      2.0.0
+
+  # Add some environment variables
+  environment:
+    CIRCLE_ENV: test
+
+  override:
+    - bundle install: # note ':' here
+        timeout: 180 # fail if command has no output for 3 minutes
+
