@@ -27,10 +27,19 @@ The Exporter has a couple of options.
 
 `--output` Set the directory to store the issues in. By default it is the current directory.
 
+The issues will be exported into either a single `issues.json` file or multiple `issue-[NUMBER].json` files.
+
+### Example
+
+```
+export-github-issues tallwave github_issue_exporter [TOKEN]
+
+export-github-issues --multiple-files --output ~/issues tallwave github_issue_exporter [TOKEN]
+```
+
 ## Roadmap
 
  * Import issues back into a repository.
- * Allow outputting to stdout.
 
 ## Contributing
 
