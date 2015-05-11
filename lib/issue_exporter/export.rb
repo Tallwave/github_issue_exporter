@@ -18,10 +18,23 @@ module IssueExporting
     def export
       url = URI.parse make_url
       response = Net::HTTP::get url
-      outputter.write response
+      if err = error_message(response)
+        handle_error err
+      else
+        outputter.write response
+      end
     end
 
     private
+    def error_message(response_text)
+      response_object = JSON.parse response_text
+      response_object["message"]
+    end
+
+    def handle_error(error_message)
+      abort "ERROR: #{error_message}"
+    end
+
     def make_url
       url_format = @token ? url_with_token : url_without_token
       url_format % [@owner, @repo, @token]
