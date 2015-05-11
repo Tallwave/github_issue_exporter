@@ -35,6 +35,16 @@ describe 'Integrations:' do
       expect(File.read(output_filename)).to eq mock_data
     end
 
+    it 'downloads public repos without needing an access_token' do
+      exporter = IssueExporting::Exporter.new(owner, repo)
+      stub_request(:any, "https://api.github.com/repos/swilliams/test-repo/issues").to_return(body: mock_data)
+      exporter.export()
+      expect(File.exists? output_filename).to eq true
+      expect(File.read(output_filename)).to eq mock_data
+    end
+
+    it 'handles errors gracefully'
+
     it 'allows custom output file' do
       custom_path = File.expand_path('../tmp', __FILE__)
       outputter = IssueExporting::FileOutputter.new(path: custom_path)

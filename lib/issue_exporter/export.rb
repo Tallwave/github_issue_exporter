@@ -8,7 +8,7 @@ module IssueExporting
 
     attr_accessor :outputter
 
-    def initialize(owner, repo, token, options = {})
+    def initialize(owner, repo, token = nil, options = {})
       @owner = owner
       @repo = repo
       @token = token
@@ -23,8 +23,16 @@ module IssueExporting
 
     private
     def make_url
-      url_format = "https://api.github.com/repos/%s/%s/issues?access_token=%s"
+      url_format = @token ? url_with_token : url_without_token
       url_format % [@owner, @repo, @token]
+    end
+
+    def url_with_token
+      "#{url_without_token}?access_token=%s"
+    end
+
+    def url_without_token
+      "https://api.github.com/repos/%s/%s/issues"
     end
 
   end
