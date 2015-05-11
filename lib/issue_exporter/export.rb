@@ -28,7 +28,9 @@ module IssueExporting
     private
     def error_message(response_text)
       response_object = JSON.parse response_text
-      response_object["message"]
+      if response_object.is_a? Hash
+        response_object["message"]
+      end
     end
 
     def handle_error(error_message)

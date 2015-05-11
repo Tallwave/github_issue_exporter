@@ -35,15 +35,13 @@ describe 'Integrations:' do
       expect(File.read(output_filename)).to eq mock_data
     end
 
-    it 'downloads public repos without needing an access_token' do
-      exporter = IssueExporting::Exporter.new(owner, repo)
-      stub_request(:any, "https://api.github.com/repos/swilliams/test-repo/issues").to_return(body: mock_data)
-      exporter.export()
-      expect(File.exists? output_filename).to eq true
-      expect(File.read(output_filename)).to eq mock_data
+    it 'handles errors gracefully' do
+      exporter = IssueExporting::Exporter.new(owner, repo, token)
+      error_hash = {"message" => "Bad credentials","documentation_url" => "https://developer.github.com/v3"}
+      stub_request(:any, "https://api.github.com/repos/swilliams/test-repo/issues?access_token=abcdef").to_return(body: error_hash.to_json)
+      expect { exporter.export() }.to raise_error SystemExit
+      expect(File.exists? output_filename).to eq false
     end
-
-    it 'handles errors gracefully'
 
     it 'allows custom output file' do
       custom_path = File.expand_path('../tmp', __FILE__)
