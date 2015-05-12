@@ -41,8 +41,8 @@ HERE
 
     def perform_action
 # Turn last 3 args into owner, repo, token
-      importer = IssueExporting::Importer.new
-      #importer.import
+      importer = IssueExporting::Importer.new []
+      importer.import
     end
 
     def process_input(arg, index)
