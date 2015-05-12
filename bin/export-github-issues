@@ -21,8 +21,6 @@ Usage: #{$PROGRAM_NAME} [OPTION]... [OWNER] [REPO] [TOKEN]
 
 Example: #{$PROGRAM_NAME} swilliams issue_exporter abcdef
 
-TOKEN is only necessary for private repositories.
-
 -o, --output      DIRECTORY
                     set output path
                       (default: current working directory)

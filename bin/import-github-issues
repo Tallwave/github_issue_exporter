@@ -1,0 +1,54 @@
+#!/usr/bin/env ruby -W
+# Copyright (c) 2015 Scott Williams
+
+$LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__) + '/../lib')
+
+require 'issue_exporter/cli'
+
+module IssueExporting
+  class Command
+    include CLI
+
+    def about
+      VERSION
+    end
+
+    def usage
+      <<HERE
+Import issues downloaded from an archived GitHub repository into a new one.
+
+Usage: #{$PROGRAM_NAME} [OPTION] [FILE_NAMES]... [OWNER] [REPO] [TOKEN]
+
+--directory   DIRECTORY
+                rather than read individual files, read all appropriate files
+                in the provided directory
+
+-h, --help        display this help and exit
+    --version     display the version
+HERE
+
+    end
+
+    def initialize
+      super
+      @directory = nil
+      @args = []
+    end
+
+    def define_options(opts)
+      opts.on('--directory')      { |arg| @directory = arg }
+    end
+
+    def perform_action
+# Turn last 3 args into owner, repo, token
+      importer = IssueExporting::Importer.new
+      #importer.import
+    end
+
+    def process_input(arg, index)
+      @args.append arg
+    end
+  end
+end
+
+IssueExporting::Command.new.run
