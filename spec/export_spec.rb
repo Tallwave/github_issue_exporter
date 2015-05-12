@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Integrations:' do
+describe 'Export Integrations:' do
   let (:owner) { "swilliams" }
   let (:repo) { "test-repo" }
   let (:token) { "abcdef" }

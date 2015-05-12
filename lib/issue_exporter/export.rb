@@ -38,18 +38,9 @@ module IssueExporting
     end
 
     def make_url
-      url_format = @token ? url_with_token : url_without_token
+      url_format = IssueExporting.api_url
       url_format % [@owner, @repo, @token]
     end
-
-    def url_with_token
-      "#{url_without_token}?access_token=%s"
-    end
-
-    def url_without_token
-      "https://api.github.com/repos/%s/%s/issues"
-    end
-
   end
 end
 
