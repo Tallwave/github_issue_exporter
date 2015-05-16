@@ -35,18 +35,29 @@ HERE
       @args = []
     end
 
+    def correct_number_of_args(arg_count)
+      arg_count >= 4
+    end
+
     def define_options(opts)
       opts.on('--directory')      { |arg| @directory = arg }
     end
 
     def perform_action
-# Turn last 3 args into owner, repo, token
-      importer = IssueExporting::Importer.new []
+      process_args
+      importer = IssueExporting::Importer.new @files, @owner, @repo, @token
       importer.import
     end
 
+    def process_args
+      @files = @args[0...@args.count-3]
+      @owner = @args[@args.count-3]
+      @repo = @args[@args.count-2]
+      @token = @args[@args.count-1]
+    end
+
     def process_input(arg, index)
-      @args.append arg
+      @args << arg
     end
   end
 end

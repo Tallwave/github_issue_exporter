@@ -41,6 +41,10 @@ HERE
       @multiple_files = false
     end
 
+    def correct_number_of_args(arg_count)
+      arg_count == 3
+    end
+
     def define_options(opts)
       opts.on('-o', '--output ARG') { |arg| @output = arg }
       opts.on('--multiple-files')      { @multiple_files = true }

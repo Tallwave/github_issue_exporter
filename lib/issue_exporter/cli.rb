@@ -26,7 +26,7 @@ module IssueExporting
       end
 
       fail UsageError, 'missing argument' if ARGV.empty?
-      fail UsageError, 'incorrect number of arguments' if ARGV.count != 3
+      fail UsageError, 'incorrect number of arguments' unless correct_number_of_args ARGV.count
       ARGV.each_with_index { |arg, index| process_input arg, index }
       perform_action()
 
