@@ -16,25 +16,14 @@ module IssueExporting
     end
 
     def export
+      error_handler = ErrorHandler.new
       url = IssueExporting.make_uri @owner, @repo, @token
       response = Net::HTTP::get url
-      if err = error_message(response)
-        handle_error err
+      if err = error_handler.error_message(response)
+        error_handler.handle_error err
       else
         outputter.write response
       end
-    end
-
-    private
-    def error_message(response_text)
-      response_object = JSON.parse response_text
-      if response_object.is_a? Hash
-        response_object["message"]
-      end
-    end
-
-    def handle_error(error_message)
-      abort "ERROR: #{error_message}"
     end
 
   end
