@@ -25,8 +25,6 @@ describe 'Import Integrations:' do
     expect { importer.import() }.to output('').to_stdout
   end
 
-  it 'inserts multiple issues'
-
   it 'handles errors gracefully' do
     stub_request(:post, "https://api.github.com/repos/swilliams/test-repo/issues?access_token=abcdef").to_return(body: mock_bad_response, status: 403)
     importer = IssueExporting::Importer.new([issue_path], owner, repo, token)
