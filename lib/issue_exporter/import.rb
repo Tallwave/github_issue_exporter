@@ -68,7 +68,10 @@ module IssueExporting
     end
 
     def handle_response(response)
-      puts response
+      error_handler = ErrorHandler.new
+      if error_handler.response_has_error response
+        error_handler.handle_error error_handler.error_message(response.body), true
+      end
     end
 
     def handle_missing_file(filename)
