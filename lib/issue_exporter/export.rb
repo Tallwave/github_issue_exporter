@@ -16,7 +16,7 @@ module IssueExporting
     end
 
     def export
-      url = URI.parse make_url
+      url = IssueExporting.make_uri @owner, @repo, @token
       response = Net::HTTP::get url
       if err = error_message(response)
         handle_error err
@@ -37,10 +37,6 @@ module IssueExporting
       abort "ERROR: #{error_message}"
     end
 
-    def make_url
-      url_format = IssueExporting.api_url
-      url_format % [@owner, @repo, @token]
-    end
   end
 end
 
