@@ -57,7 +57,7 @@ module IssueExporting
     end
 
     def read_file(filename)
-      path = "#{Dir.pwd}/#{filename}"
+      path = full_path filename
       if File.exist? path
         raw_text = File.read path
         JSON.parse raw_text
@@ -65,6 +65,11 @@ module IssueExporting
         handle_missing_file path
         nil
       end
+    end
+
+    def full_path(filename)
+      return filename if File.dirname(filename) != "."
+      "#{Dir.pwd}/#{filename}"
     end
 
     def handle_response(response)
