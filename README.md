@@ -61,6 +61,7 @@ import-github-issues --directory ~/issues tallwave github_issue_exporter [TOKEN]
 ## Roadmap
 
  * Better error handling.
+ * Create a GitHub 'application' so that the user doesn't need the auth token.
 
 ## Contributing
 
