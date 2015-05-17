@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby -W
 # Copyright (c) 2015 Scott Williams
 
-$LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__) + '/../lib')
+$LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__) + "/../lib")
 
-require 'issue_exporter/cli'
+require "issue_exporter/cli"
 
 module IssueExporting
   class Command
@@ -46,8 +46,8 @@ HERE
     end
 
     def define_options(opts)
-      opts.on('-o', '--output ARG') { |arg| @output = arg }
-      opts.on('--multiple-files')      { @multiple_files = true }
+      opts.on("-o", "--output ARG") { |arg| @output = arg }
+      opts.on("--multiple-files")      { @multiple_files = true }
     end
 
     def process_input(arg, index)

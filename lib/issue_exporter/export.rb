@@ -1,7 +1,7 @@
 # Copyright (c) 2015 Scott Williams
 
-require 'net/http'
-require 'json'
+require "net/http"
+require "json"
 
 module IssueExporting
   class Exporter

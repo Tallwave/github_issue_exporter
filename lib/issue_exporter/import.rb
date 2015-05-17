@@ -1,5 +1,5 @@
-require 'net/http'
-require 'json'
+require "net/http"
+require "json"
 
 module IssueExporting
   class Importer
@@ -46,9 +46,9 @@ module IssueExporting
     def create_issue(json_obj)
       uri = IssueExporting.make_uri @owner, @repo, @token
       http = Net::HTTP.new(uri.host, uri.port)
-      http.use_ssl = true if uri.scheme == 'https'
+      http.use_ssl = true if uri.scheme == "https"
       request = Net::HTTP::Post.new uri.request_uri
-      request.content_type = 'application/json'
+      request.content_type = "application/json"
       request.body = json_obj.to_json
       handle_response http.request(request)
     end
