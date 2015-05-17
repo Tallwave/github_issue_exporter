@@ -56,11 +56,11 @@ import-github-issues --directory ~/issues tallwave github_issue_exporter [TOKEN]
 
 #### Importer Notes
 * Issues will be added to the repository as if they were brand new, so old issue numbers will not be used.
-* If your user does not have push access to the repository, assignees, milestones, and labels will not be set. This is according to the [GitHub documentation](https://developer.github.com/v3/issues/#create-an-issue).
+* If your user does not have push access to the repository, assignees, milestones, and labels will not be set. Read more in the [GitHub documentation](https://developer.github.com/v3/issues/#create-an-issue).
 
 ## Roadmap
 
- * Import issues back into a repository.
+ * Better error handling.
 
 ## Contributing
 
