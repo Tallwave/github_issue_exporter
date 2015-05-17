@@ -1,0 +1,81 @@
+#!/usr/bin/env ruby -W
+# Copyright (c) 2015 Scott Williams
+
+$LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__) + "/../lib")
+
+require "issue_exporter/cli"
+
+module IssueExporting
+  class Command
+    include CLI
+
+    def about
+      VERSION
+    end
+
+    def usage
+      <<HERE
+Import issues downloaded from an archived GitHub repository into a new one.
+
+Usage: #{$PROGRAM_NAME} [OPTION] [FILE_NAMES]... [OWNER] [REPO] [TOKEN]
+
+--directory   DIRECTORY
+                rather than read individual files, read all appropriate files
+                in the provided directory
+
+-h, --help        display this help and exit
+    --version     display the version
+HERE
+
+    end
+
+    def initialize
+      super
+      @directory = nil
+      @directory_to_parse = nil
+      @args = []
+    end
+
+    def correct_number_of_args(arg_count)
+      has_directory? ? arg_count == 1 : arg_count >= 4
+    end
+
+    def define_options(opts)
+      opts.on("--directory")      { |arg| @directory = arg }
+    end
+
+    def perform_action
+      process_args
+      if has_directory?
+        importer = IssueExporting::DirectoryImporter.new @directory_to_parse
+        importer.import
+      else
+        importer = IssueExporting::Importer.new @files, @owner, @repo, @token
+        importer.import
+      end
+    end
+
+    # TODO: handle directory flag
+    def process_args
+      if has_directory?
+        @directory_to_parse = @args[0]
+      else
+        @files = @args[0...@args.count-3]
+        @owner = @args[@args.count-3]
+        @repo = @args[@args.count-2]
+        @token = @args[@args.count-1]
+      end
+    end
+
+    def process_input(arg, index)
+      @args << arg
+    end
+
+    private
+    def has_directory?
+      !@directory.nil?
+    end
+  end
+end
+
+IssueExporting::Command.new.run

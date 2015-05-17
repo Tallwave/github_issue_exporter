@@ -1,7 +1,7 @@
 # Copyright (c) 2015 Scott Williams
 
-require 'optparse'
-require 'issue_exporter'
+require "optparse"
+require "issue_exporter"
 
 module IssueExporting
   module CLI
@@ -10,12 +10,12 @@ module IssueExporting
       begin
         OptionParser.new do |opts|
           define_options opts
-          opts.on '-h', '--help' do
+          opts.on "-h", "--help" do
             puts usage
             exit
           end
 
-          opts.on '--version' do
+          opts.on "--version" do
             puts about
             exit
           end
@@ -25,8 +25,8 @@ module IssueExporting
         raise UsageError, e
       end
 
-      fail UsageError, 'missing argument' if ARGV.empty?
-      fail UsageError, 'incorrect number of arguments' if ARGV.count != 3
+      fail UsageError, "missing argument" if ARGV.empty?
+      fail UsageError, "incorrect number of arguments" unless correct_number_of_args ARGV.count
       ARGV.each_with_index { |arg, index| process_input arg, index }
       perform_action()
 

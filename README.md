@@ -4,6 +4,8 @@
 
 Need to archive some repositories that are stored on GitHub? Great. Don't forget to hold on to any open issues you may still have. GitHub Issue Exporter is a command-line utility that will download all the open issues for a single repository.
 
+There's also another executable for importing those issues back into a repository, so you can resurrect an archived repository with all of its issues.
+
 ## Installation
 
 GitHub Issue Exporter is built with Ruby and needs Ruby 2.0 or higher. Install it with RubyGems.
@@ -19,7 +21,9 @@ sudo gem install github_issue_exporter
 ```
 
 ## Usage
-You'll need 3 things to run this, the name of the owner of the repository, the repository name, and an access token that has the authority to download the Issues. You can generate this token from [here](https://github.com/settings/tokens), and clicking on "Generate new token". Here's a [blog post with some more of the details involved](http://blog.swilliams.me/words/2015/04/01/two-factor-authentication-for-github/).
+There are two executables, `export-github-issues` and `import-github-issues`. Both reneed at least three things to run, the owner of the repository, the repository name, and an access token that has the authority to download the Issues. You can generate this token from [here](https://github.com/settings/tokens), and clicking on "Generate new token". Here's a [blog post with some more of the details involved](http://blog.swilliams.me/words/2015/04/01/two-factor-authentication-for-github/).
+
+### export-github-issues
 
 The Exporter has a couple of options.
 
@@ -37,9 +41,26 @@ export-github-issues tallwave github_issue_exporter [TOKEN]
 export-github-issues --multiple-files --output ~/issues tallwave github_issue_exporter [TOKEN]
 ```
 
+### import-github-issues
+You can import issues a couple of different ways. First is to provide the name of each JSON file created by the exporter.
+
+```
+import-github-issues issues.json more-issues.json tallwave github_issue_exporter [TOKEN]
+```
+
+Or you can use the `--directory` flag and load all the JSON files in the specified directory.
+
+```
+import-github-issues --directory ~/issues tallwave github_issue_exporter [TOKEN]
+```
+
+#### Importer Notes
+* Issues will be added to the repository as if they were brand new, so old issue numbers will not be used.
+* If your user does not have push access to the repository, assignees, milestones, and labels will not be set. Read more in the [GitHub documentation](https://developer.github.com/v3/issues/#create-an-issue).
+
 ## Roadmap
 
- * Import issues back into a repository.
+ * Better error handling.
 
 ## Contributing
 

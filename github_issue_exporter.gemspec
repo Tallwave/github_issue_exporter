@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.email                 = 'scott@swilliams.me'
   s.homepage              = 'https://github.com/Tallwave/github_issue_exporter'
   s.files                 = Dir['{bin,lib}/**/*'] + ['github_issue_exporter.gemspec']
-  s.executables           = ['export-github-issues']
+  s.executables           = ['export-github-issues', 'import-github-issues']
   s.extra_rdoc_files      = ['LICENSE', 'README.md']
   s.require_paths         = ['lib']
 end

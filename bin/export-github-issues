@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby -W
 # Copyright (c) 2015 Scott Williams
 
-$LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__) + '/../lib')
+$LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__) + "/../lib")
 
-require 'issue_exporter/cli'
+require "issue_exporter/cli"
 
 module IssueExporting
   class Command
@@ -20,8 +20,6 @@ Download all open issues from a GitHub repository.
 Usage: #{$PROGRAM_NAME} [OPTION]... [OWNER] [REPO] [TOKEN]
 
 Example: #{$PROGRAM_NAME} swilliams issue_exporter abcdef
-
-TOKEN is only necessary for private repositories.
 
 -o, --output      DIRECTORY
                     set output path
@@ -43,9 +41,13 @@ HERE
       @multiple_files = false
     end
 
+    def correct_number_of_args(arg_count)
+      arg_count == 3
+    end
+
     def define_options(opts)
-      opts.on('-o', '--output ARG') { |arg| @output = arg }
-      opts.on('--multiple-files')      { @multiple_files = true }
+      opts.on("-o", "--output ARG") { |arg| @output = arg }
+      opts.on("--multiple-files")      { @multiple_files = true }
     end
 
     def process_input(arg, index)
