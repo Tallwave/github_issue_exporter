@@ -18,6 +18,7 @@ module IssueExporting
     end
 
     private
+
     def import_json(json_obj)
       if json_obj.class == Hash
         import_json_hash json_obj
@@ -39,7 +40,7 @@ module IssueExporting
     end
 
     def filter_json(json_hash)
-      json_hash.select { |k,v| allowed_properties.include? k }
+      json_hash.select { |k, _v| allowed_properties.include? k }
     end
 
     def create_issue(json_obj)
@@ -82,6 +83,5 @@ module IssueExporting
     def handle_missing_file(filename)
       puts "Cannot open file: #{filename}"
     end
-
   end
 end
