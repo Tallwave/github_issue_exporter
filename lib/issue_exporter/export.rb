@@ -12,7 +12,9 @@ module IssueExporting
       @owner = owner
       @repo = repo
       @token = token
-      @outputter = FileOutputter.new options
+      @options = options
+      outputter_options = options.select { |k,v| [:path, :multiple_files].include? k }
+      @outputter = FileOutputter.new outputter_options
     end
 
     def export

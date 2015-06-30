@@ -28,6 +28,8 @@ Example: #{$PROGRAM_NAME} swilliams issue_exporter abcdef
     --multiple-files Use a separate file for each issue
                     (default: one single file)
 
+    --closed      include closed issues (default: false)
+
 -h, --help        display this help and exit
     --version     display the version
 
@@ -39,6 +41,7 @@ HERE
       super
       @output = nil
       @multiple_files = false
+      @include_closed_issues = false
     end
 
     def correct_number_of_args(arg_count)
@@ -47,7 +50,8 @@ HERE
 
     def define_options(opts)
       opts.on("-o", "--output ARG") { |arg| @output = arg }
-      opts.on("--multiple-files")      { @multiple_files = true }
+      opts.on("--multiple-files")   { @multiple_files = true }
+      opts.on("--closed")           { @include_closed_issues = true }
     end
 
     def process_input(arg, index)
@@ -62,7 +66,9 @@ HERE
     end
 
     def perform_action
-      options = { path: @output, multiple_files: @multiple_files }
+      options = { path: @output,
+                  multiple_files: @multiple_files,
+                  include_closed_issues: @include_closed_issues }
       exporter = IssueExporting::Exporter.new(@owner, @repo, @token, options)
       exporter.export
     end
