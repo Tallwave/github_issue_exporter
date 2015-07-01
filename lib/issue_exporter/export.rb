@@ -27,7 +27,6 @@ module IssueExporting
         outputter.write response
       end
     end
-
   end
 end
 
