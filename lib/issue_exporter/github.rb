@@ -8,7 +8,7 @@ module IssueExporting
   def self.make_url(owner, repo, token, options = {})
     url_format = IssueExporting.api_url
     root_url = url_format % [owner, repo, token]
-    return root_url if options[:include_closed_issues].nil?
+    return root_url unless options[:include_closed_issues] == true
     root_url + "&state=all"
   end
 
