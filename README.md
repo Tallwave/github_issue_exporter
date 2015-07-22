@@ -31,12 +31,16 @@ The Exporter has a couple of options.
 
 `--output` Set the directory to store the issues in. By default it is the current directory.
 
+`--closed` By default, only Open issues are exported. Adding this flag will include Closed ones as well.
+
 The issues will be exported into either a single `issues.json` file or multiple `issue-[NUMBER].json` files.
 
 ### Example
 
 ```
 export-github-issues tallwave github_issue_exporter [TOKEN]
+
+export-github-issues --closed tallwave github_issue_exporter [TOKEN]
 
 export-github-issues --multiple-files --output ~/issues tallwave github_issue_exporter [TOKEN]
 ```
@@ -61,6 +65,7 @@ import-github-issues --directory ~/issues tallwave github_issue_exporter [TOKEN]
 ## Roadmap
 
  * Better error handling.
+ * Properly import closed issues.
  * Create a GitHub 'application' so that the user doesn't need the auth token.
 
 ## Contributing
