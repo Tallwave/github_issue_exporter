@@ -19,7 +19,7 @@ module IssueExporting
 
     def export
       error_handler = ErrorHandler.new
-      url = IssueExporting.make_uri @owner, @repo, @token
+      url = IssueExporting.make_uri @owner, @repo, @token, @options
       response = Net::HTTP::get url
       if err = error_handler.error_message(response)
         error_handler.handle_error err

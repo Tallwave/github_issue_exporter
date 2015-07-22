@@ -15,6 +15,11 @@ describe 'Export Integrations:' do
       File.read mock_file
     }
 
+    let (:mock_data_closed) {
+      mock_file = File.expand_path('../fixtures/issues_closed.json', __FILE__)
+      File.read mock_file
+    }
+
     before(:each) do
       if File.exists? output_filename
         File.delete output_filename
@@ -63,6 +68,15 @@ describe 'Export Integrations:' do
       expect(file_count).to eq 2
       File.delete "#{dir}/issue-1.json"
       File.delete "#{dir}/issue-2.json"
+    end
+
+    it 'exports closed issues when that flag is set' do
+      options = { include_closed_issues: true }
+      exporter = IssueExporting::Exporter.new(owner, repo, token, options)
+      stub_request(:any, "https://api.github.com/repos/swilliams/test-repo/issues?access_token=abcdef&state=all").to_return(body: mock_data_closed)
+      exporter.export()
+      expect(File.exists? output_filename).to eq true
+      expect(File.read(output_filename)).to eq mock_data_closed
     end
   end
 
