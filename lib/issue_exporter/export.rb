@@ -1,6 +1,5 @@
 # Copyright (c) 2015 Scott Williams
 
-require "net/http"
 require "json"
 
 module IssueExporting

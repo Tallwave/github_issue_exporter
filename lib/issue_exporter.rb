@@ -3,6 +3,7 @@
 require "English"
 require "shellwords"
 require "json"
+require "net/http"
 require "issue_exporter/github"
 require "issue_exporter/error_handler"
 require "issue_exporter/outputter"
