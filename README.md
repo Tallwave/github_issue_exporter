@@ -31,6 +31,8 @@ The Exporter has a couple of options.
 
 `--output` Set the directory to store the issues in. By default it is the current directory.
 
+`--output-type` Sets the filetype to output. Current options are `file` (the default) and `csv`. The `multiple-files` flag will only work with `file`.
+
 `--closed` By default, only Open issues are exported. Adding this flag will include Closed ones as well.
 
 The issues will be exported into either a single `issues.json` file or multiple `issue-[NUMBER].json` files.
@@ -43,6 +45,8 @@ export-github-issues tallwave github_issue_exporter [TOKEN]
 export-github-issues --closed tallwave github_issue_exporter [TOKEN]
 
 export-github-issues --multiple-files --output ~/issues tallwave github_issue_exporter [TOKEN]
+
+export-github-issues --output-type csv tallwave github_issue_exporter [TOKEN]
 ```
 
 ### import-github-issues
@@ -61,6 +65,12 @@ import-github-issues --directory ~/issues tallwave github_issue_exporter [TOKEN]
 #### Importer Notes
 * Issues will be added to the repository as if they were brand new, so old issue numbers will not be used.
 * If your user does not have push access to the repository, assignees, milestones, and labels will not be set. Read more in the [GitHub documentation](https://developer.github.com/v3/issues/#create-an-issue).
+
+# Development
+This sees sporadic development but here's some info if you're interested:
+
+## Testing
+You'll need [bundler](http://bundler.io) installed. Run `bundle install --binstubs` to install dependencies and test binaries. You can then execute the specs with `bin/rspec` from the root folder.
 
 ## Roadmap
 
