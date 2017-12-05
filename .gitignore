@@ -43,3 +43,4 @@ build/
 /bin/safe_yaml
 /bin/htmldiff
 /bin/ldiff
+/bin/rake
