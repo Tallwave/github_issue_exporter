@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 2.0'
   s.summary               = 'Tools to export GitHub Issues'
   s.description           = <<-HERE
-    Download Issues from a GitHub repository.
+    Export or Import issues from a GitHub repository.
   HERE
   s.license               = 'MIT'
   s.author                = 'Scott Williams'
