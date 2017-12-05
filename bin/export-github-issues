@@ -21,14 +21,18 @@ Usage: #{$PROGRAM_NAME} [OPTION]... [OWNER] [REPO] [TOKEN]
 
 Example: #{$PROGRAM_NAME} swilliams issue_exporter abcdef
 
--o, --output      DIRECTORY
-                    set output path
-                      (default: current working directory)
+    --closed      include closed issues (default: false)
 
     --multiple-files Use a separate file for each issue
                     (default: one single file)
 
-    --closed      include closed issues (default: false)
+-o, --output      DIRECTORY
+                    set output path
+                      (default: current working directory)
+
+    --output-type TYPE
+                    sets the filetype (csv or file)
+                      (default: file)
 
 -h, --help        display this help and exit
     --version     display the version
@@ -42,6 +46,7 @@ HERE
       @output = nil
       @multiple_files = false
       @include_closed_issues = false
+      @output_type = 'file'
     end
 
     def correct_number_of_args(arg_count)
@@ -52,6 +57,7 @@ HERE
       opts.on("-o", "--output ARG") { |arg| @output = arg }
       opts.on("--multiple-files")   { @multiple_files = true }
       opts.on("--closed")           { @include_closed_issues = true }
+      opts.on("--output-type ARG")      { |arg| @output_type = arg }
     end
 
     def process_input(arg, index)
@@ -68,7 +74,8 @@ HERE
     def perform_action
       options = { path: @output,
                   multiple_files: @multiple_files,
-                  include_closed_issues: @include_closed_issues }
+                  include_closed_issues: @include_closed_issues,
+                  output_type: @output_type }
       exporter = IssueExporting::Exporter.new(@owner, @repo, @token, options)
       exporter.export
     end

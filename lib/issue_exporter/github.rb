@@ -1,5 +1,3 @@
-require "open-uri"
-
 module IssueExporting
   def self.api_url
     "https://api.github.com/repos/%s/%s/issues?access_token=%s"
@@ -13,7 +11,7 @@ module IssueExporting
   end
 
   def self.make_uri(owner, repo, token, options = {})
-    URI.parse IssueExporting.make_url(owner, repo, token, options)
+    URI(IssueExporting.make_url(owner, repo, token, options))
   end
 
   def self.turn_options_into_querystring(options)

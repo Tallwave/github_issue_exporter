@@ -38,3 +38,9 @@ build/
 .rvmrc
 
 .DS_Store
+/bin/bundle
+/bin/rspec
+/bin/safe_yaml
+/bin/htmldiff
+/bin/ldiff
+/bin/rake

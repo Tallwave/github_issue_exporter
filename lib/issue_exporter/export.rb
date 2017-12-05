@@ -1,6 +1,5 @@
 # Copyright (c) 2015 Scott Williams
 
-require "net/http"
 require "json"
 
 module IssueExporting
@@ -13,8 +12,9 @@ module IssueExporting
       @repo = repo
       @token = token
       @options = options
-      outputter_options = options.select { |k,v| [:path, :multiple_files].include? k }
-      @outputter = FileOutputter.new outputter_options
+      valid_option_keys = [:path, :multiple_files, :output_type]
+      outputter_options = options.select { |k,v| valid_option_keys.include? k }
+      @outputter = build_outputter outputter_options
     end
 
     def export
@@ -25,6 +25,17 @@ module IssueExporting
         error_handler.handle_error err
       else
         outputter.write response
+      end
+    end
+
+    private
+    def build_outputter(outputter_options)
+      output_type = outputter_options[:output_type] || 'file'
+      case output_type
+      when 'csv'
+        return CsvOutputter.new(outputter_options)
+      else
+        return FileOutputter.new(outputter_options)
       end
     end
   end
