@@ -5,6 +5,7 @@ describe 'Export Integrations:' do
   let (:repo) { "test-repo" }
   let (:token) { "abcdef" }
 
+
   describe 'file output' do
     let (:output_filename) {
       File.expand_path('../../issues.json', __FILE__)
@@ -32,9 +33,21 @@ describe 'Export Integrations:' do
       end
     end
 
+    it 'builds URLs' do
+      exporter = IssueExporting::Exporter.new(owner, repo, token)
+      qs = exporter.build_query_string({})
+      expect(qs).to eq ''
+      qs = exporter.build_query_string({ include_closed_issues: true })
+      expect(qs).to eq '&state=all'
+      qs = exporter.build_query_string({ page_size: true })
+      expect(qs).to eq '&per_page=100'
+      qs = exporter.build_query_string({ include_closed_issues: true, page_size: true })
+      expect(qs).to eq '&state=all&per_page=100'
+    end
+
     it 'puts it all in one file by default' do
       exporter = IssueExporting::Exporter.new(owner, repo, token)
-      stub_request(:any, "https://api.github.com/repos/swilliams/test-repo/issues?access_token=abcdef").to_return(body: mock_data)
+      stub_request(:any, "https://api.github.com/repos/swilliams/test-repo/issues?access_token=abcdef&per_page=100").to_return(body: mock_data)
       exporter.export()
       expect(File.exists? output_filename).to eq true
       expect(File.read(output_filename)).to eq mock_data
@@ -43,7 +56,7 @@ describe 'Export Integrations:' do
     it 'handles errors gracefully' do
       exporter = IssueExporting::Exporter.new(owner, repo, token)
       error_hash = {"message" => "Bad credentials","documentation_url" => "https://developer.github.com/v3"}
-      stub_request(:any, "https://api.github.com/repos/swilliams/test-repo/issues?access_token=abcdef").to_return(body: error_hash.to_json)
+      stub_request(:any, "https://api.github.com/repos/swilliams/test-repo/issues?access_token=abcdef&per_page=100").to_return(body: error_hash.to_json)
       expect { exporter.export() }.to raise_error SystemExit
       expect(File.exists? output_filename).to eq false
     end

@@ -7,7 +7,7 @@ module IssueExporting
 
     attr_accessor :outputter
 
-    def initialize(owner, repo, token = nil, options = {})
+    def initialize(owner, repo, token = nil, options = { page_size: true })
       @owner = owner
       @repo = repo
       @token = token
@@ -19,7 +19,8 @@ module IssueExporting
 
     def export
       error_handler = ErrorHandler.new
-      url = IssueExporting.make_uri @owner, @repo, @token, @options
+      url = IssueExporting.make_uri @owner, @repo, @token
+      url.query += build_query_string @options
       response = Net::HTTP::get url
       if err = error_handler.error_message(response)
         error_handler.handle_error err
@@ -28,7 +29,24 @@ module IssueExporting
       end
     end
 
-    private
+    def build_query_string(options)
+      values = {
+        include_closed_issues: 'state=all',
+        page_size: 'per_page=100'
+      }
+      qs = options.reduce([]) do |arr, kv| 
+        key, val = kv
+        query_value = values[key] if val
+        if query_value.nil?
+          arr
+        else
+          arr.push(query_value) unless query_value.nil?
+        end
+      end
+      if qs == [] then return '' end
+      return '&' + qs.join('&')
+    end
+    
     def build_outputter(outputter_options)
       output_type = outputter_options[:output_type] || 'file'
       case output_type
