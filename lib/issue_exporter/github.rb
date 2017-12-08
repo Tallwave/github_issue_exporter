@@ -3,15 +3,14 @@ module IssueExporting
     "https://api.github.com/repos/%s/%s/issues?access_token=%s"
   end
 
-  def self.make_url(owner, repo, token, options = {})
+  def self.make_url(owner, repo, token)
     url_format = IssueExporting.api_url
     root_url = url_format % [owner, repo, token]
-    return root_url unless options[:include_closed_issues] == true
-    root_url + "&state=all"
+    return root_url 
   end
 
-  def self.make_uri(owner, repo, token, options = {})
-    URI(IssueExporting.make_url(owner, repo, token, options))
+  def self.make_uri(owner, repo, token)
+    URI(IssueExporting.make_url(owner, repo, token))
   end
 
   def self.turn_options_into_querystring(options)
