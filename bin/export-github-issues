@@ -75,7 +75,8 @@ HERE
       options = { path: @output,
                   multiple_files: @multiple_files,
                   include_closed_issues: @include_closed_issues,
-                  output_type: @output_type }
+                  output_type: @output_type,
+                  page_size: true }
       exporter = IssueExporting::Exporter.new(@owner, @repo, @token, options)
       exporter.export
     end
